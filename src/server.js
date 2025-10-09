@@ -4,7 +4,7 @@
 // ES6 Modules
 import express from "express";
 import sequelize from "./database/connection.js";
-import cors from 'cors';
+import cors from "cors";
 
 // Import the all models
 
@@ -33,25 +33,25 @@ const app = express();
 
 // Middleware to parse JSON bodies
 // Increase the JSON body size limit to 50mb
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 // Define the port the server will run on
 const PORT = 3000;
 
 // Enable CORS for requests from localhost:5173
-app.use(cors({
-  origin: 'http://localhost:5173',  // Allow only your frontend to access the API
-  methods: 'GET, POST, PUT, DELETE',  // Specify allowed HTTP methods
-  credentials: true,  // Allow cookies or authorization headers
-}));
+app.use(
+  cors({
+    origin: "*", // Allow only your frontend to access the API
+    methods: "GET, POST, PUT, DELETE", // Specify allowed HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], //Allow Authorization header
+  })
+);
 
 // A simple route to test if server is working
 app.get("/", (req, res) => {
   res.send("Hello ! This is the backend server running");
 });
-
-
 
 // Set up APi Response
 // For user-related routes,  we use the userRoutes module
